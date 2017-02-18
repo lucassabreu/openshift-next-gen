@@ -1,0 +1,46 @@
+version: '2.0'
+services:
+  node:
+    image: node:7.5.0-alpine
+    volumes:
+      - .:/app/src
+    working_dir: /app/src
+  frontend:
+    image: node:7.5.0-alpine
+    volumes:
+      - .:/app/src
+    working_dir: /app/src/frontend
+    command: npm start
+    ports:
+        - 3000:3000
+    links:
+      - backend
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - ENV=DEV
+      - DATABASE_CONNECTION=mysql://${DATABASE_USER}:${DATABASE_PASSW}@${DATABASE_HOST}:3306/${DATABASE_NAME}
+    image: openshift-app-test
+    ports:
+      - 80:80
+    volumes:
+      - ./:/app/src
+    links:
+      - db
+  db:
+    build:
+      context: ./db
+      dockerfile: Dockerfile
+    image: openshift-mysql-test
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSW}
+    volumes:
+        - ./.data:/var/lib/mysql
+        - ./:/var/app
+    working_dir: /var/app
+

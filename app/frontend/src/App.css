@@ -1,0 +1,69 @@
+html, body, #root {
+    padding : 0;
+    margin: 0;
+    width : 100%;
+    height : 100%;
+}
+
+.App {
+    display: flex;
+    flex-direction : column;
+    justify-content : space-around;
+    height : 100%;
+    width : 100%;
+}
+
+.App > * {
+    height : 45%;
+    width : 100%;
+}
+
+.App > h1 {
+    height : 2rem;
+    margin : 0;
+    padding : 0;
+    display : flex;
+    justify-content: space-around;
+    color: red;
+}
+
+.App > h1 > * {
+    width : 40%;
+}
+
+.monthGenderChart {
+    display : flex;
+    justify-content : space-around;
+}
+
+.monthGenderChart > * {
+    width : 45%;
+    display : flex;
+    justify-content : space-around;
+    flex-direction : column;
+}
+
+.monthGenderChart > * > h2 {
+    height : 10%;
+}
+
+.monthGenderChart > * > * {
+    height : 70%;
+}
+
+.pieContainer {
+    display: flex;
+    justify-content : space-around;
+}
+
+.pieContainer > div {
+    display: flex;
+    flex-direction: column;
+    height : 100%;
+    width : 40%;
+}
+
+.center {
+    text-align : center
+}
+
