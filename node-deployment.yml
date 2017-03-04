@@ -18,5 +18,8 @@ spec:
               protocol: TCP
           env:
             - name: DATABASE_CONNECTION
-              value: mysql://appoint:123@db-service:3306/appointments
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secrets
+                  key: mysql-database-connection
 
