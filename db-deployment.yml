@@ -1,0 +1,32 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "db-deployment"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: "db-pod"
+    spec:
+      containers:
+        - name: "db"
+          image: "lucassabreu/openshift-mysql-test"
+          ports:
+            - name: "mysql-port"
+              containerPort: 3306
+          env:
+            - name: MYSQL_DATABASE
+              value: appointments
+            - name: MYSQL_ROOT_PASSWORD
+              value: "root"
+            - name: MYSQL_USER
+              value: "appoint"
+            - name: MYSQL_PASSWORD
+              value: "123"
+          volumeMounts:
+            - name: "mysql-volume"
+              mountPath: "/var/lib/mysql"
+      volumes:
+        - name: "mysql-volume"
+

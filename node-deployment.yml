@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: "node-deployment"
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: "node-pod"
+    spec:
+      containers:
+        - name: "node"
+          image: "lucassabreu/openshift-app-test"
+          ports:
+            - name: node-port
+              containerPort: 8080
+              protocol: TCP
+          env:
+            - name: DATABASE_CONNECTION
+              value: mysql://appoint:123@db-service:3306/appointments
+
